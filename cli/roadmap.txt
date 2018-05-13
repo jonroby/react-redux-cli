@@ -1,0 +1,47 @@
+all
+- allow user to create things inside a folder:
+// ************************ HANDLE CREATING COMPONENT IN FOLDER ************
+// if (component === "-") {
+//   get current component folder
+//   console.log("filename ", __dirname)
+//   fs.writeFile(`./${component}-actions.jsx`, createActions(), errorCb);
+// } else {
+//
+// }
+// ************************ HANDLE CREATING COMPONENT IN FOLDER ************
+
+- allow user to specify multiple arguments -a doThing doOtherThing doThirdThing
+- don't allow, at any point, a user to add something if the action, reducer, saga,
+root saga already exists. the command should return an error and specify
+what is prohibiting its completion and that nothing will be completed, until
+the problem is corrected.
+
+actions
+- by default, if user tries to create an individual action, but the file doesn't
+exist, do it anyway? or at least ask if they'd like to create a file.
+- add redundancy checks in the event someone adds an action constant, but not a
+an actionFunction, so only the latter is added, but not the former.
+- if a sync action already exists, allow someone to turn it to async.
+
+reducers
+- for createReducerFile, don't allow to create file, if one already exists.
+- for createReducerFile(), add a check to see if individual actions exist,
+and if so, don't merge them from actions file.
+
+sagas
+- allow users to add more than 1 saga
+- better name for 'clean sagas response'
+- don't use hardcoded path for modifying '../src/redux/sagas'
+
+UI
+- let user know what files have been created.
+- give them warnings if something already exists.
+
+OTHER
+- routes
+- components
+- functional components
+- delete things
+- user should switch from normal component to connected component
+- 
+MAKE SURE NO EXTRA NEWLINES WHEN REPLACING EMPTY ACTIONS
