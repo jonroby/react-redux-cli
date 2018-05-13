@@ -1,4 +1,4 @@
-import { types } from '../actions/user-actions';
+import { types } from './user-actions';
 
 export const initialState = {
   employee: {}
@@ -18,4 +18,3 @@ const userReducer = (state = initialState, action) => {
 };
 
 export default userReducer;
-

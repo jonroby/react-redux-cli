@@ -11,4 +11,4 @@ const query = query => () => {
 
 const mutation = () => {};
 
-export { query, mutation };
+export default { query, mutation };
