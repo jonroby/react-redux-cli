@@ -11,4 +11,15 @@ const query = query => () => {
 
 const mutation = () => {};
 
+
+// implement regular get method
+const get = url => () => {
+
+}
+
+// implement regular post method
+const post = url => () => {
+
+}
+
 export default { query, mutation };
