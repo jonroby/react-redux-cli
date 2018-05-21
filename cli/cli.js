@@ -2,10 +2,12 @@
 
 const program = require('commander');
 
+const handle = require('./handle');
+
 const handleCreateActions = require('./actions/handleCreateActions');
 const handleCreateReducer = require('./reducer/handleCreateReducer');
 const handleCreateSaga = require('./saga/handleCreateSaga');
-const handleCreateConnectedComponent = require('./connectedComponent/handleCreateConnectedComponent');
+// handleConnectedComponent
 const handleDefault = require('./default/handleDefault');
 
 const getFilepath = require('./helpers/getFilepath');
@@ -65,7 +67,7 @@ program
     }
 
     if (option.connectedComponent) {
-      handleCreateConnectedComponent(data, filepath);
+      handle(data, filepath);
     }
 
     if (option.default) {
@@ -74,3 +76,10 @@ program
   });
 
 program.parse(process.argv);
+
+// put in arguments handle(d, fp)
+// 
+// check d.actionOption. In transform object[d.actionOption]
+// handle(d, fp)
+
+
