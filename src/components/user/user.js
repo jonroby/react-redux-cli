@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUser } from '../../redux/actions/user';
+import { fetchUser } from '../redux/actions/user';
 
 class User extends Component {
   constructor(props) {
