@@ -1,17 +1,16 @@
-// import actionCreator from './actionCreator';
+// const action = require( './action'); 
 const component = require('./connectedComponent');
-// import reducer from './reducer';
-// import rootReducer from './rootReducer';
-// import saga from './saga';
-// import rootSaga from './rootSaga';
-
+// const reducer = require( './reducer');
+// const rootReducer = require( './rootReducer');
+// const saga = require( './saga');
+// const rootSaga = require( './rootSaga');
 
 const generateFileStrings = {
-  // actionCreator,
+  // action,
   component,
   // reducer,
   // rootReducer,
-  // saga
+  // saga,
   // rootSaga
 }
 
