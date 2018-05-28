@@ -13,16 +13,15 @@ const handleDefault = require('./default/handleDefault');
 const getFilepath = require('./helpers/getFilepath');
 const { createActionCamels, createActionConstants } = require('./helpers/createActionConstants');
 
-program
-  .version('0.0.1')
-  .description('The Noir CLI');
+// program
+//   .version('0.0.1')
+//   .description('The Noir CLI');
 
 program
   .usage('cre <component>')
   .option('-a, --action-creator [actionName] [impure]', 'Create Action')
   .option('-r, --reducer [actionName] [impure]', 'Create Reducer')
   .option('-s, --saga <actionName>', 'Create Saga')
-
   .option('-c, --connected-component [actionName]', 'Create Connected Component')
   .option('-d, --default [actionName] [impure]', 'Create all Default')
 
@@ -54,25 +53,26 @@ program
       actionCamels,
     };
 
-    if (option.actionCreator) {
-      handleCreateActions(data, filepath);
-    }
+  //   if (option.actionCreator) {
+  //     handleCreateActions(data, filepath);
+  //   }
 
-    if (option.reducer) {
-      handleCreateReducer(data, filepath);
-    }
+  //   if (option.reducer) {
+  //     handleCreateReducer(data, filepath);
+  //   }
 
-    if (option.saga) {
-      handleCreateSaga(data, filepath);
-    }
+  //   if (option.saga) {
+  //     handleCreateSaga(data, filepath);
+  //   }
 
-    if (option.connectedComponent) {
+    if (true) {
+      console.log('here')
       handle(data, filepath);
     }
 
-    if (option.default) {
-      handleDefault(data, filepath);
-    }
+  //   if (option.default) {
+  //     handleDefault(data, filepath);
+  //   }
   });
 
 program.parse(process.argv);
