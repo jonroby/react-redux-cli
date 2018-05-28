@@ -18,17 +18,15 @@ const handle = require('./handle');
 const getFilepath = require('./helpers/getFilepath');
 const { createActionCamels, createActionConstants } = require('./helpers/createActionConstants');
 
-
-
-console.log('process ', process.argv);
+// console.log('process ', process.argv);
 
 const args = process.argv.slice(2);
 
 // add logic for optional arguments
-const action = 'fetchAThing';
+const action = 'fetchAnotherThing';
 const isPure = true;
 const filename = 'user';
-const filetype = 'component'; // 
+const filetype = 'reducers'; // actions reducers sagas component
 const actionConstants = createActionConstants(action, isPure);
 const actionCamels = createActionCamels(action, isPure);
 
@@ -43,10 +41,5 @@ const data = {
   actionCamels,
 };
 
-console.log('data ', data);
-
 handle(data, filepath);
-
-
-
 
