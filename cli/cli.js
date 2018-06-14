@@ -31,7 +31,7 @@ const args = process.argv.slice(2);
 const action = args[0];
 const isPure = true;
 const filename = args[1];
-const filetypes = commands[args[2]] ? [commands[args2[2]]] : ['components', 'actions', 'reducers']; // actions reducers sagas components
+const filetypes = commands[args[2]] ? [commands[args[2]]] : ['components', 'actions', 'reducers']; // actions reducers sagas components
 
 const actionConstants = createActionConstants(action, isPure);
 const actionCamels = createActionCamels(action, isPure);

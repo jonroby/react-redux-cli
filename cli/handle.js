@@ -8,7 +8,6 @@ const {
 const generateFileString = require("./generateFileStrings");
 
 function handle(d, fp) {
-  console.log("d.filetype ", d.filetype);
   const fileExists = fs.existsSync(fp[d.filetype].ae);
 
   const filesToTransform = fileExists
