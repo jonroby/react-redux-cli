@@ -1,10 +1,6 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-import userReducer from './user.js';
-// import testCompReducer from '../../components/testComp/test-comp-reducer';
+import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
 
 export default combineReducers({
-  router: routerReducer,
-  user: userReducer,
-//   testComp: testCompReducer,
+  router: routerReducer
 });
