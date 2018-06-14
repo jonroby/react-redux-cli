@@ -1,4 +1,4 @@
-import { types } from './user-actions';
+import { types } from '../actions/user';
 
 export const initialState = {
   employee: {}

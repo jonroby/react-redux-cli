@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { fetchUserSuccess, fetchUserFailed, types } from './user-actions';
-import graphQL from '../../redux/api';
-import { query, transform } from './user-query';
+import { fetchUserSuccess, fetchUserFailed, types } from '../actions/user';
+import graphQL from '../api.js';
+import { query, transform } from './transforms/user';
 
 // query
 // transform
@@ -9,7 +9,9 @@ import { query, transform } from './user-query';
 // success
 // types
 export function* fetchUserQL({ payload }) {
+  console.log("here")
   const data = yield call(graphQL.query(query()), payload);
+  console.log("data ", data)
 
   const transformedData = transform(data);
 

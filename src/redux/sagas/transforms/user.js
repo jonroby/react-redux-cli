@@ -8,8 +8,8 @@ let query = () => (`
 
 let transform = data => {
   return {
-    response: [],
-    error: null,
+    data,
+    errors: null,
   };
 };
 

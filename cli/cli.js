@@ -1,76 +1,56 @@
-#!/usr/bin/env node
+// arg 1
+// gen
+// del
 
-const program = require('commander');
+// arg 2
+// <actionName>
 
-const handleCreateActions = require('./actions/handleCreateActions');
-const handleCreateReducer = require('./reducer/handleCreateReducer');
-const handleCreateSaga = require('./saga/handleCreateSaga');
-const handleCreateConnectedComponent = require('./connectedComponent/handleCreateConnectedComponent');
-const handleDefault = require('./default/handleDefault');
+// arg 3
+// component -c
+// reducer -r
+// action -a
+// saga -s
 
+// dux gen fetchSomething -p user -c
+// dux <gen*/del> fetchSomething <pure*/impure> <name> <-c/-r/-s/-a/all>
+const handle = require('./handle');
 const getFilepath = require('./helpers/getFilepath');
 const { createActionCamels, createActionConstants } = require('./helpers/createActionConstants');
 
-program
-  .version('0.0.1')
-  .description('The Noir CLI');
 
-program
-  .usage('cre <component>')
-  .option('-a, --action-creator [actionName] [impure]', 'Create Action')
-  .option('-r, --reducer [actionName] [impure]', 'Create Reducer')
-  .option('-s, --saga <actionName>', 'Create Saga')
+const commands = {
+  '-a': 'actions',
+  '-r': 'reducers',
+  '-c': 'components'
+}
 
-  .option('-c, --connected-component [actionName]', 'Create Connected Component')
-  .option('-d, --default [actionName] [impure]', 'Create all Default')
+// <cli-command> <action> <componentName> (-c/-r/-a)
+const args = process.argv.slice(2);
 
-  .action((cmd, component, opt1, opt2) => {
-    const option = !opt2 ? opt1 : opt2; // setup option
-    const isImpure = !!opt2 && opt1 === 'impure'; // roundabout way of determining that impure was entered.
-    const isPure = !isImpure;
-    const filepath = getFilepath(component);
+// add logic for optional arguments
+const action = args[0];
+const isPure = true;
+const filename = args[1];
+const filetypes = commands[args[2]] ? [commands[args2[2]]] : ['components', 'actions', 'reducers']; // actions reducers sagas components
 
-    // setup should occur elsewhere
-    const options = ['actionCreator', 'reducer', 'saga', 'connectedComponent', 'default'];
-    let actionOption = '';
-    options.forEach(o => {
-      if (option[o] !== undefined && option[o] !== true) {
-        actionOption = option[o];
-      }
-    });
+const actionConstants = createActionConstants(action, isPure);
+const actionCamels = createActionCamels(action, isPure);
 
-    // check if 'actionOption' is 'impure' and throw error if it is. The user
-    // probably meant to create an action with the additional option impure.
+const filepath = getFilepath(filename);
 
-    const actionConstants = createActionConstants(actionOption, isPure);
-    const actionCamels = createActionCamels(actionOption, isPure);
-    const data = {
-      component,
-      isPure,
-      actionOption,
-      actionConstants,
-      actionCamels,
-    };
+filetypes.forEach(ft => {
+  const data = {
+    action,
+    isPure,
+    filename,
+    filetype: ft,
+    actionConstants,
+    actionCamels,
+  };
 
-    if (option.actionCreator) {
-      handleCreateActions(data, filepath);
-    }
+  handle(data, filepath);
+});
 
-    if (option.reducer) {
-      handleCreateReducer(data, filepath);
-    }
+// exec prettier command
 
-    if (option.saga) {
-      handleCreateSaga(data, filepath);
-    }
 
-    if (option.connectedComponent) {
-      handleCreateConnectedComponent(data, filepath);
-    }
-
-    if (option.default) {
-      handleDefault(data, filepath);
-    }
-  });
-
-program.parse(process.argv);
