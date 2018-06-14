@@ -21,4 +21,10 @@ const toCapitalized = (variable) => {
   return capitalized;
 }
 
-module.exports = { toConstant, toKabob, toCapitalized };
+const toLowercase = (variable) => {
+  const lowercase = variable.charAt(0).toLowerCase() + variable.slice(1);
+  return lowercase;
+}
+
+
+module.exports = { toConstant, toKabob, toCapitalized, toLowercase };

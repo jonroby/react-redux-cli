@@ -3,6 +3,7 @@ const { addToFileString, createFileString } = require('./addToFileString');
 
 function handleFileString(d, fp, fileName, strings) {
   let fileString = '';
+
   const fileExists = fs.existsSync(fileName);
   if (!fileExists) {
     fileString = createFileString(d, fp, strings);
@@ -20,7 +21,6 @@ function handleOption(d, fp, args) {
     const { fileString, fileExists } = handleFileString(d, fp, filepaths[i], strings[i]);
 
     if (fileString) {
-      console.log('fileString ', filepaths[i])
       fs.writeFileSync(filepaths[i], fileString);
 
       // If the file already exists there is no need to add to other files like
