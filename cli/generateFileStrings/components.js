@@ -1,9 +1,9 @@
 const { toCapitalized } = require('../helpers/convertVariables');
 
-const connectedComponentFileString = (d, fp) => {
+const components = (d, fp) => {
   return (`import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { } from '../../redux/actions';
+import { ${d.action} } from '../../redux/actions/${d.filename}';
 
 class ${toCapitalized(d.filename)} extends Component {
   constructor(props: Props) {
@@ -21,9 +21,7 @@ class ${toCapitalized(d.filename)} extends Component {
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(${toCapitalized(d.filename)});`);
+export default connect(mapStateToProps, { ${d.action} })(${toCapitalized(d.filename)});`);
 };
 
-module.exports = connectedComponentFileString;
+module.exports = components;
