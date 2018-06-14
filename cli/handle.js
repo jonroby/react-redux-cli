@@ -1,45 +1,57 @@
-const fs = require('fs');
+const fs = require("fs");
 
 const {
   additionalTransforms,
-  transformFileStrings,
-  transforms,
-} = require('./transformFileStrings');
+  transformFileString
+} = require("./transformFileStrings");
 
-const generateFileStrings = require('./generateFileStrings');
+const generateFileString = require("./generateFileStrings");
 
 function handle(d, fp) {
-  console.log('d ', d);
-  console.log('fp ', fp)
-  const fileExists = fs.existsSync(fp[d.component].ae);
+  console.log("d.filetype ", d.filetype);
+  const fileExists = fs.existsSync(fp[d.filetype].ae);
 
   const filesToTransform = fileExists
-        ? [d.actionOption]
-        : additionalTransformations(d.actionOption);
+    ? [d.filetype]
+    : additionalTransforms[d.filetype] || [];
 
-  const filesToGenerate = fileExists
-        ? []
-        : [d.actionOption];
+  const filesToGenerate = fileExists ? [] : [d.filetype];
 
-  const fileStringsToTransform = fileStringNames.map(fileStringName => {
-    return fs.readFileSync(fp[fileStringName].ae, 'utf8');
+  const fileStringsToTransform = filesToTransform.map(fileToTransform => {
+    const fileString = fs.readFileSync(fp[fileToTransform].ae, {
+      encoding: "utf8"
+    });
+    return {
+      fileString,
+      filePath: fp[fileToTransform].ae,
+      filetype: fileToTransform
+    };
   });
 
-  const transformedFileStrings = transformFileStrings(
-    fileStringsToTransform,
-    transforms,
-    d,
-    fp
-  );
+  const transformedFileString = fileStringsToTransform.map(file => {
+    return {
+      path: file.filePath,
+      fileString: transformFileString(
+        file.fileString,
+        { ...d, filetype: file.filetype },
+        fp
+      ).code
+    };
+  });
 
-  const generatedFileStrings = generateFileStrings(fileStrings, d, fp);
+  const generatedFileStrings = filesToGenerate.map(fileToGenerate => {
+    return {
+      path: fp[d.filetype].ae,
+      fileString: generateFileString[fileToGenerate](d, fp)
+    };
+  });
 
-  generatedFileStrings
-    .concat(transformedFileStrings)
-    .forEach(fileString => {
-      fs.writeFileSync(fileString);
-    });
+  generatedFileStrings.concat(transformedFileString).forEach(fstr => {
+    if (d.filetype === "components" && !fs.existsSync(fp.folderPath)) {
+      fs.mkdirSync(fp.folderPath);
+    }
+    fs.writeFileSync(fstr.path, fstr.fileString, "utf8");
+  });
 }
 
 module.exports = handle;
-
