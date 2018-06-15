@@ -29,7 +29,7 @@ const args = process.argv.slice(2);
 
 // add logic for optional arguments
 const action = args[0];
-const isPure = true;
+const isPure = args.filter(a => a === "impure").length === 0;
 const filename = args[1];
 const filetypes = commands[args[2]] ? [commands[args[2]]] : ['components', 'actions', 'reducers']; // actions reducers sagas components
 
@@ -38,12 +38,12 @@ const actionCamels = createActionCamels(action, isPure);
 
 const filepath = getFilepath(filename);
 
-filetypes.forEach(ft => {
+filetypes.forEach(filetype => {
   const data = {
     action,
     isPure,
     filename,
-    filetype: ft,
+    filetype,
     actionConstants,
     actionCamels,
   };
